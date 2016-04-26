@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Todo>
+@{
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form action="~/addTodo" method="post">
+            <div class="input-group">
+                <input class="form-control" type="text" Name="Name" placeholder="What do you need to do?" />
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="submit">Do it!</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <form action="~/checkTodo" method="post">
+            <ul class="list-group">
+                @foreach (var todo in Model)
+                {
+                    <li class="list-group-item">
+                        <label>
+                            <input type="checkbox" name="Id" value="@todo.id" aria-label="Checkbox for the associated todo item" onChange="this.form.submit()" />
+                            @todo.Name
+                        </label>
+                    </li>
+                }
+            </ul>
+        </form>
+    </div>
+</div>
