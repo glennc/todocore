@@ -22,7 +22,10 @@ namespace TodoCore.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var user = await _db.Users.Include(x => x.Todos).FirstOrDefaultAsync();
+            //todo: probably need a service to deal with some of this.
+            var currentUserId = int.Parse(HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+
+            var user = await _db.Users.Include(x => x.Todos).FirstOrDefaultAsync(x=>x.Id == currentUserId);
             if (user != null)
             {
                 return View(user.Todos.ToList());
@@ -46,8 +49,8 @@ namespace TodoCore.Controllers
         [HttpPost("addTodo")]
         public async Task<IActionResult> AddTodo(Todo todoToAdd)
         {
-            var currentUserId = int.Parse(HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
 
+            var currentUserId = int.Parse(HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
             var user = await _db.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
             if (user == null)
             {

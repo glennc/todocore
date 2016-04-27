@@ -2,7 +2,6 @@
   "userSecretsId": "aspnet-TodoCore-20160426031221",
   "dependencies": {
     "Microsoft.NETCore.App": {
-      "type": "platform",
       "version": "1.0.0-rc2-3002426"
     },
     "Microsoft.EntityFrameworkCore": "1.0.0-rc2-20634",
@@ -35,13 +34,17 @@
       "imports": "portable-net45+win8+dnxcore50"
     },
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": {
-      "version": "1.0.0-rc2-20634",
+      "version": "1.0.0-rc2-*",
       "imports": "portable-net45+win8+dnxcore50"
     },
     "Microsoft.Extensions.SecretManager.Tools": {
       "version": "1.0.0-rc2-20634",
       "imports": "portable-dnxcore50+net45+win8+wp8+wpa81"
     }
+  },
+
+  "runtimes": {
+    "win7-x64": { }
   },
 
   "frameworks": {

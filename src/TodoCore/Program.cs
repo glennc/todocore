@@ -14,7 +14,7 @@ namespace TodoCore
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
-                .UseKestrel()
+                .UseKestrel(o => o.ThreadCount = 1)
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseDefaultHostingConfiguration(args)
                 .UseIISIntegration()
