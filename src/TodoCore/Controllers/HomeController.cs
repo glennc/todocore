@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace TodoCore.Controllers
 {
-    [Authorize()]
+    //[Authorize()]
     public class HomeController : Controller
     {
         private TodoContext _db;

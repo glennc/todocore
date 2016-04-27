@@ -1,34 +1,39 @@
 ﻿@model IEnumerable<Todo>
-@{
-}
 
 <div class="row">
     <div class="col-md-12">
-        <form action="~/addTodo" method="post">
-            <div class="input-group">
-                <input class="form-control" type="text" Name="Name" placeholder="What do you need to do?" />
-                <span class="input-group-btn">
-                    <button class="btn btn-secondary" type="submit">Do it!</button>
-                </span>
+        <div class="card">
+            <div class="card-header">
+                <form action="~/addTodo" method="post">
+                    <div class="input-group">
+                        <input class="form-control mousetrap" autofocus type="text" Name="Name" placeholder="What do you need to do?" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }" />
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <form action="~/checkTodo" method="post">
-            <ul class="list-group">
-                @foreach (var todo in Model)
-                {
-                    <li class="list-group-item">
-                        <label>
-                            <input type="checkbox" name="Id" value="@todo.id" aria-label="Checkbox for the associated todo item" onChange="this.form.submit()" />
-                            @todo.Name
-                        </label>
-                    </li>
-                }
-            </ul>
-        </form>
+            <div class="card-block">
+                <form action="~/checkTodo" method="post">
+                    <ul class="list-group">
+                        @{var todoNumber = 0;}
+                        @foreach (var todo in Model)
+                        {
+                            todoNumber++;
+                            <li class="list-group-item">
+                                <label>
+                                    <input type="checkbox" id="@($"checkbox{todoNumber}")" name="Id" value="@todo.id" aria-label="Checkbox for the associated todo item" onChange="this.form.submit()" />
+                                    @todo.Name
+                                </label>
+                            </li>
+                        }
+                        @for(int i = Model.Count(); i < 10; i++)
+                        {
+                            <li class="list-group-item">
+                                <label>
+                                    <input type="checkbox" name="Id" value="" aria-label="Checkbox for the associated todo item"/>
+                                </label>
+                            </li>
+                        }
+                    </ul>
+                </form>
+        </div>
     </div>
 </div>

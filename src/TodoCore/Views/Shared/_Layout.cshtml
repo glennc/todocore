@@ -22,19 +22,16 @@
 <body>
 
     <div class="container body-content">
-        <div>
-            <a href="~/logout">logout</a>
-        </div>
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2016 - TodoCore</p>
         </footer>
     </div>
 
+    <script src="~/lib/mousetrap/mousetrap.min.js"></script>
+    <script src="~/lib/tether/dist/js/tether.js"></script>
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/tether/dist/js/tether.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
