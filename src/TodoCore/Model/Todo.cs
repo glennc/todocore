@@ -10,5 +10,6 @@ namespace TodoCore.Model
         public int id { get; set; }
         public string Name { get; set; }
         public string Body { get; set; }
+        public User User { get; set; }
     }
 }

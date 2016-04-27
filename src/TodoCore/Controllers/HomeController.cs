@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TodoCore.Model;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace TodoCore.Controllers
 {
-    //[Authorize()]
+    [Authorize()]
     public class HomeController : Controller
     {
         private TodoContext _db;
@@ -18,9 +20,15 @@ namespace TodoCore.Controllers
             _db = db;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_db.Todos.ToList());
+            var user = await _db.Users.Include(x => x.Todos).FirstOrDefaultAsync();
+            if (user != null)
+            {
+                return View(user.Todos.ToList());
+            }
+
+            return View(Enumerable.Empty<Todo>());
         }
 
         [HttpPost("checkTodo")]
@@ -38,7 +46,21 @@ namespace TodoCore.Controllers
         [HttpPost("addTodo")]
         public async Task<IActionResult> AddTodo(Todo todoToAdd)
         {
-            _db.Todos.Add(todoToAdd);
+            var currentUserId = int.Parse(HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+
+            var user = await _db.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
+            if (user == null)
+            {
+                user = new User
+                {
+                    Id = currentUserId,
+                    Name = HttpContext.User.Identity.Name
+                };
+                _db.Users.Add(user);
+            }
+
+            user.Todos.Add(todoToAdd);
+
             await _db.SaveChangesAsync();
             return new RedirectResult("~/");
         }

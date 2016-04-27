@@ -5,6 +5,7 @@
       "type": "platform",
       "version": "1.0.0-rc2-3002426"
     },
+    "Microsoft.EntityFrameworkCore": "1.0.0-rc2-20634",
     "Microsoft.EntityFrameworkCore.Sqlite": "1.0.0-rc2-20634",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-20634",
     "Microsoft.AspNetCore.Mvc": "1.0.0-rc2-20634",
